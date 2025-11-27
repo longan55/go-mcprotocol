@@ -8,6 +8,8 @@ import (
 )
 
 type Client interface {
+	Connect() error
+	Close() error
 	Read(deviceName string, offset, numPoints int64) ([]byte, error)
 	BitRead(deviceName string, offset, numPoints int64) ([]byte, error)
 	Write(deviceName string, offset, numPoints int64, writeData []byte) ([]byte, error)
@@ -28,6 +30,15 @@ func New3EClient(host string, port int, stn *station) (Client, error) {
 		return nil, err
 	}
 	return &client3E{tcpAddr: tcpAddr, stn: stn}, nil
+}
+
+func (c *client3E) Connect() error {
+	return nil
+}
+
+// Close实现Client接口的Close方法
+func (c *client3E) Close() error {
+	return nil
 }
 
 // MELSECコミュニケーションプロトコル p180
